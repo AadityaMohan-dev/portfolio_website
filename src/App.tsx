@@ -18,9 +18,19 @@ export function App() {
     return false; // default light paper like original site
   });
 
-  const [activeSection, setActiveSection] = useState<string>('about');
+  const [activeSection, setActiveSection] = useState<string>('hero');
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+
+  useEffect(() => {
+    const previousScrollRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
+    return () => {
+      window.history.scrollRestoration = previousScrollRestoration;
+    };
+  }, []);
 
   // Apply theme class to root HTML element
   useEffect(() => {

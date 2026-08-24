@@ -16,7 +16,7 @@ export const Hero: React.FC<HeroProps> = ({
   onToggleTheme,
 }) => {
   return (
-    <section className="relative overflow-hidden border-b border-paper-200/70 dark:border-paper-800/70">
+    <section id="hero" className="relative overflow-hidden border-b border-paper-200/70 dark:border-paper-800/70">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="flex flex-col gap-4 border-x border-paper-200/70 dark:border-paper-800/70 px-4 py-5 sm:px-6 sm:py-7 lg:px-8">

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aaditya Mohan — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F3EE;
+    --paper-dim:#ECE8DE;
+    --card:#FFFFFF;
+    --ink:#14181F;
+    --ink-soft:#5B6270;
+    --line:#DBD6C9;
+    --green:#2F6D53;
+    --green-soft:#E3EEE7;
+    --amber:#B4740E;
+    --amber-soft:#F5E9D3;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+    --sans:'Inter', -apple-system, sans-serif;
+    --radius: 3px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* subtle blueprint grid texture */
+  .grid-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:40px 40px;
+    opacity:0.35;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  }
+
+  a{color:inherit;}
+  ::selection{background:var(--green); color:var(--paper);}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 32px; position:relative; z-index:1;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(245,243,238,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px; max-width:1080px; margin:0 auto;
+  }
+  .brand{
+    font-family:var(--mono); font-weight:700; font-size:15px; letter-spacing:0.02em;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--green); box-shadow:0 0 0 3px var(--green-soft);}
+  nav.links{display:flex; gap:26px; align-items:center;}
+  .endpoint-link{
+    font-family:var(--mono); font-size:12.5px; text-decoration:none; color:var(--ink-soft);
+    display:flex; align-items:center; gap:7px; transition:color .15s ease;
+  }
+  .endpoint-link:hover{color:var(--ink);}
+  .method{font-weight:800; font-size:10.5px; padding:2px 6px; border-radius:2px; letter-spacing:0.03em;}
+  .method.get{background:var(--green-soft); color:var(--green);}
+  .method.post{background:var(--amber-soft); color:var(--amber);}
+  .nav-icons{display:flex; gap:10px;}
+  .icon-btn{
+    width:34px; height:34px; display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--line); border-radius:var(--radius); color:var(--ink);
+    text-decoration:none; transition:all .15s ease; background:var(--card);
+  }
+  .icon-btn:hover{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+  .icon-btn svg{width:16px; height:16px;}
+
+  @media (max-width:820px){
+    nav.links .endpoint-link span.label{display:none;}
+    .nav{padding:16px 20px;}
+    .wrap{padding:0 20px;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:88px 0 70px; position:relative;}
+  .status-pill{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:12px; font-weight:600;
+    padding:6px 12px; border:1px solid var(--green); border-radius:20px;
+    color:var(--green); background:var(--green-soft); margin-bottom:28px;
+  }
+  .status-pill .pulse{
+    width:7px; height:7px; border-radius:50%; background:var(--green);
+    animation:pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1; transform:scale(1);}
+    50%{opacity:0.4; transform:scale(0.8);}
+  }
+
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:start;}
+  @media (max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+
+  .hero h1{
+    font-family:var(--mono); font-size:clamp(34px, 5vw, 54px); font-weight:800;
+    line-height:1.08; margin:0 0 18px; letter-spacing:-0.01em;
+  }
+  .hero h1 .accent{color:var(--green);}
+  .hero .role{
+    font-size:19px; color:var(--ink-soft); margin:0 0 22px; max-width:46ch;
+  }
+  .hero .role strong{color:var(--ink); font-weight:600;}
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:30px;}
+  .btn{
+    font-family:var(--mono); font-size:13px; font-weight:600; text-decoration:none;
+    padding:12px 20px; border-radius:var(--radius); display:inline-flex; align-items:center; gap:8px;
+    transition:all .15s ease; border:1px solid transparent;
+  }
+  .btn-primary{background:var(--ink); color:var(--paper);}
+  .btn-primary:hover{background:var(--green);}
+  .btn-ghost{border-color:var(--line); color:var(--ink); background:var(--card);}
+  .btn-ghost:hover{border-color:var(--ink);}
+
+  /* terminal card - signature element */
+  .terminal{
+    background:var(--ink); border-radius:6px; overflow:hidden;
+    box-shadow:0 20px 50px -20px rgba(20,24,31,0.4);
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px; padding:12px 16px;
+    background:#1D222B; border-bottom:1px solid #2A303B;
+  }
+  .terminal-bar .tf{width:10px; height:10px; border-radius:50%;}
+  .terminal-bar .tf:nth-child(1){background:#E5716B;}
+  .terminal-bar .tf:nth-child(2){background:#E5B96B;}
+  .terminal-bar .tf:nth-child(3){background:#6BBF8F;}
+  .terminal-title{
+    font-family:var(--mono); font-size:11px; color:#8891A0; margin-left:6px;
+  }
+  .terminal-body{
+    padding:22px 20px; font-family:var(--mono); font-size:13px; color:#C8D0DC;
+    min-height:280px;
+  }
+  .terminal-body .prompt{color:#6BBF8F;}
+  .terminal-body .path{color:#8891A0;}
+  .term-line{white-space:pre-wrap; word-break:break-word;}
+  .cursor{display:inline-block; width:7px; height:14px; background:#C8D0DC; vertical-align:middle; margin-left:2px; animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .json-key{color:#7FB3E8;}
+  .json-str{color:#E5B96B;}
+  .json-punc{color:#8891A0;}
+
+  /* ---------- SECTION SCAFFOLDING ---------- */
+  section{padding:80px 0; position:relative;}
+  .eyebrow{
+    display:flex; align-items:center; gap:10px; font-family:var(--mono);
+    font-size:12.5px; color:var(--ink-soft); margin-bottom:16px; text-transform:none;
+  }
+  .eyebrow .method{font-size:10.5px;}
+  h2.section-title{
+    font-family:var(--mono); font-size:clamp(26px,3.4vw,36px); font-weight:800; margin:0 0 14px;
+  }
+  .lede{color:var(--ink-soft); max-width:64ch; margin:0 0 44px; font-size:16px;}
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  /* ---------- ABOUT ---------- */
+  .tag-groups{display:grid; gap:22px; margin-top:8px;}
+  .tag-group h4{
+    font-family:var(--mono); font-size:12px; color:var(--ink-soft); font-weight:600;
+    margin:0 0 10px; text-transform:uppercase; letter-spacing:0.06em;
+  }
+  .tags{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    font-family:var(--mono); font-size:12.5px; padding:6px 11px; background:var(--card);
+    border:1px solid var(--line); border-radius:var(--radius); color:var(--ink);
+  }
+
+  .stat-row{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:36px 0 44px;}
+  .stat-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:20px;}
+  .stat-num{font-family:var(--mono); font-size:28px; font-weight:800; color:var(--green);}
+  .stat-label{font-size:13px; color:var(--ink-soft); margin-top:4px;}
+  @media (max-width:700px){.stat-row{grid-template-columns:1fr;}}
+
+  /* ---------- EXPERIENCE ---------- */
+  .job{
+    background:var(--card); border:1px solid var(--line); border-radius:6px;
+    padding:28px 30px; margin-bottom:22px; position:relative;
+  }
+  .job-head{display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; margin-bottom:6px;}
+  .job-role{font-family:var(--mono); font-weight:700; font-size:18px;}
+  .job-meta{color:var(--ink-soft); font-size:14px; margin-bottom:16px;}
+  .job-dates{
+    font-family:var(--mono); font-size:12px; color:var(--ink-soft); background:var(--paper-dim);
+    padding:4px 10px; border-radius:20px; white-space:nowrap;
+  }
+  .job ul{margin:0 0 16px; padding-left:20px; color:var(--ink);}
+  .job li{margin-bottom:7px; font-size:14.5px;}
+  .stack-line{font-family:var(--mono); font-size:12px; color:var(--ink-soft); padding-top:14px; border-top:1px dashed var(--line);}
+  .stack-line b{color:var(--ink);}
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:760px){.proj-grid{grid-template-columns:1fr;}}
+  .proj-card{
+    background:var(--card); border:1px solid var(--line); border-radius:6px; padding:24px;
+    display:flex; flex-direction:column; transition:border-color .15s ease, transform .15s ease;
+  }
+  .proj-card:hover{border-color:var(--ink); transform:translateY(-2px);}
+  .proj-top{display:flex; justify-content:space-between; align-items:flex-start;}
+  .proj-name{font-family:var(--mono); font-weight:700; font-size:17px;}
+  .proj-badge{font-family:var(--mono); font-size:10px; color:var(--ink-soft);}
+  .proj-desc{color:var(--ink-soft); font-size:14.5px; margin:10px 0 16px; flex:1;}
+  .proj-stack{font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); margin-bottom:14px;}
+  .proj-stack b{color:var(--ink); font-weight:600;}
+  .proj-link{
+    font-family:var(--mono); font-size:12.5px; font-weight:600; color:var(--green);
+    text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+  }
+  .proj-link:hover{text-decoration:underline;}
+  .more-note{
+    margin-top:22px; font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    border:1px dashed var(--line); border-radius:var(--radius); padding:14px 18px;
+  }
+
+  /* ---------- EDUCATION / CERTS ---------- */
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:760px){.split{grid-template-columns:1fr;}}
+  .edu-card{background:var(--card); border:1px solid var(--line); border-radius:6px; padding:24px;}
+  .edu-card h4{font-family:var(--mono); font-size:12px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.06em; margin:0 0 14px;}
+  .edu-item{margin-bottom:14px;}
+  .edu-item .deg{font-weight:700; font-size:15px;}
+  .edu-item .school{color:var(--ink-soft); font-size:13.5px;}
+  .cert-item{
+    display:flex; align-items:baseline; gap:10px; font-size:14px; padding:9px 0;
+    border-bottom:1px solid var(--paper-dim);
+  }
+  .cert-item:last-child{border-bottom:none;}
+  .cert-item .chk{font-family:var(--mono); color:var(--green); font-weight:700;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-section{background:var(--ink); color:var(--paper);}
+  .contact-section .eyebrow{color:#8891A0;}
+  .contact-section h2.section-title{color:var(--paper);}
+  .contact-section .lede{color:#AEB4BF;}
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:36px;}
+  @media (max-width:700px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-card{
+    background:#1D222B; border:1px solid #2A303B; border-radius:6px; padding:22px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    text-decoration:none; color:var(--paper); transition:border-color .15s ease;
+  }
+  .contact-card:hover{border-color:var(--green);}
+  .contact-card .cc-label{font-family:var(--mono); font-size:11px; color:#8891A0; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.06em;}
+  .contact-card .cc-value{font-family:var(--mono); font-size:14.5px;}
+  .contact-card .arrow{color:#6BBF8F; font-size:18px;}
+  .contact-foot{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    margin-top:40px; padding-top:24px; border-top:1px solid #2A303B;
+    font-family:var(--mono); font-size:12.5px; color:#8891A0;
+  }
+  .contact-foot a{color:var(--paper); text-decoration:none;}
+  .contact-foot a:hover{color:#6BBF8F;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001s !important; transition-duration:0.001s !important;}
+    html{scroll-behavior:auto;}
+  }
+
+  :focus-visible{outline:2px solid var(--green); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<header>
+  <div class="nav">
+    <div class="brand"><span class="dot"></span>aaditya.dev</div>
+    <nav class="links">
+      <a class="endpoint-link" href="#about"><span class="method get">GET</span><span class="label">/about</span></a>
+      <a class="endpoint-link" href="#experience"><span class="method get">GET</span><span class="label">/experience</span></a>
+      <a class="endpoint-link" href="#projects"><span class="method get">GET</span><span class="label">/projects</span></a>
+      <a class="endpoint-link" href="#contact"><span class="method post">POST</span><span class="label">/contact</span></a>
+    </nav>
+    <div class="nav-icons">
+      <a class="icon-btn" href="Aaditya_Mohan_Resume.pdf" target="_blank" rel="noopener" title="Resume">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+      </a>
+      <a class="icon-btn" href="https://github.com/AadityaMohan-dev" target="_blank" rel="noopener" title="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+      </a>
+      <a class="icon-btn" href="https://linkedin.com/in/aaditya-mohan" target="_blank" rel="noopener" title="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.25 8.75h3.4V21h-3.4V8.75zM9.5 8.75h3.26v1.68h.05c.45-.86 1.56-1.77 3.21-1.77 3.44 0 4.07 2.26 4.07 5.2V21h-3.4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V21H9.5V8.75z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="status-pill"><span class="pulse"></span>200 OK — open to full-time &amp; freelance work</div>
+        <h1>Aaditya<br>Mohan<span class="accent">.</span></h1>
+        <p class="role"><strong>Java Full Stack Developer</strong> — 3+ years designing and scaling enterprise applications with Spring Boot, microservices, and AWS. I turn legacy systems into modern, well-documented APIs.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="Aaditya_Mohan_Resume.pdf" target="_blank" rel="noopener">↓ Download Résumé</a>
+          <a class="btn btn-ghost" href="#contact">POST /contact</a>
+          <a class="btn btn-ghost" href="#projects">GET /projects</a>
+        </div>
+      </div>
+      <div>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="tf"></span><span class="tf"></span><span class="tf"></span>
+            <span class="terminal-title">zsh — aaditya.dev/api</span>
+          </div>
+          <div class="terminal-body" id="termBody"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about">
+    <div class="wrap reveal">
+      <div class="eyebrow"><span class="method get">GET</span> /about → 200 OK</div>
+      <h2 class="section-title">Profile summary</h2>
+      <p class="lede">A results-driven Java Full Stack Developer with hands-on experience across the SDLC — from designing REST APIs and optimizing SQL to migrating legacy platforms onto AWS. Comfortable owning a feature from sprint planning through production support.</p>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-num">3+</div><div class="stat-label">Years of professional experience</div></div>
+        <div class="stat-card"><div class="stat-num">30%</div><div class="stat-label">API latency reduction via SQL &amp; refactoring</div></div>
+        <div class="stat-card"><div class="stat-num">85%+</div><div class="stat-label">Unit test coverage with JUnit &amp; Mockito</div></div>
+      </div>
+
+      <div class="tag-groups">
+        <div class="tag-group">
+          <h4>Languages</h4>
+          <div class="tags">
+            <span class="tag">Java</span><span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">Python</span><span class="tag">SQL</span>
+          </div>
+        </div>
+        <div class="tag-group">
+          <h4>Backend</h4>
+          <div class="tags">
+            <span class="tag">Spring Boot</span><span class="tag">Spring MVC</span><span class="tag">Spring Security</span><span class="tag">Hibernate</span><span class="tag">JPA</span><span class="tag">REST APIs</span><span class="tag">SOAP Web Services</span><span class="tag">Microservices</span>
+          </div>
+        </div>
+        <div class="tag-group">
+          <h4>Frontend</h4>
+          <div class="tags">
+            <span class="tag">ReactJS</span><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">Bootstrap</span><span class="tag">Tailwind CSS</span><span class="tag">Vite</span>
+          </div>
+        </div>
+        <div class="tag-group">
+          <h4>Databases &amp; Cloud</h4>
+          <div class="tags">
+            <span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">AWS</span><span class="tag">Docker</span><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">GitLab</span><span class="tag">CI/CD</span>
+          </div>
+        </div>
+        <div class="tag-group">
+          <h4>Testing &amp; Practices</h4>
+          <div class="tags">
+            <span class="tag">JUnit 5</span><span class="tag">Mockito</span><span class="tag">Postman</span><span class="tag">OOP</span><span class="tag">Design Patterns</span><span class="tag">Agile / Scrum</span><span class="tag">System Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <section id="experience">
+    <div class="wrap reveal">
+      <div class="eyebrow"><span class="method get">GET</span> /experience → 200 OK</div>
+      <h2 class="section-title">Professional experience</h2>
+      <p class="lede">Two enterprise engagements — one modernizing HR systems for a global SAP client, one owning full-stack delivery end-to-end.</p>
+
+      <div class="job">
+        <div class="job-head">
+          <div>
+            <div class="job-role">Java Consultant</div>
+            <div class="job-meta">Contracted via NTT DATA / Havisoft → SAP Labs, Bengaluru, India</div>
+          </div>
+          <div class="job-dates">Feb 2026 – Jul 2026</div>
+        </div>
+        <ul>
+          <li>Developed enterprise HR applications within SAP SuccessFactors Benefits and Advances modules using Java and Spring Boot.</li>
+          <li>Designed and maintained scalable RESTful APIs supporting employee benefit workflows.</li>
+          <li>Collaborated with product owners, QA, and stakeholders to deliver business-critical features.</li>
+          <li>Supported system integrations between SAP SuccessFactors and enterprise platforms.</li>
+          <li>Troubleshot production issues and implemented performance improvements.</li>
+          <li>Participated in Agile ceremonies — sprint planning, estimation, code reviews, retrospectives.</li>
+        </ul>
+        <div class="stack-line"><b>Stack:</b> Java, Spring Boot, REST APIs, SAP SuccessFactors, SQL, Git, Agile</div>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <div>
+            <div class="job-role">Full Stack Developer</div>
+            <div class="job-meta">Hexaware Technologies, Chennai, India</div>
+          </div>
+          <div class="job-dates">Aug 2022 – May 2025</div>
+        </div>
+        <ul>
+          <li>Developed and maintained scalable enterprise web applications using Java, Spring Boot, ReactJS, and MySQL.</li>
+          <li>Designed and implemented REST APIs enabling seamless communication across microservices.</li>
+          <li>Optimized SQL queries and indexing strategies, improving API response times by 30%.</li>
+          <li>Led migration of legacy applications from on-premises infrastructure to AWS cloud environments.</li>
+          <li>Modernized enterprise applications by upgrading from Java 1.5 to Java 17.</li>
+          <li>Developed automated unit tests using JUnit and Mockito, achieving over 85% code coverage.</li>
+          <li>Created API documentation using Swagger/OpenAPI.</li>
+        </ul>
+        <div class="stack-line"><b>Stack:</b> Java 17, Spring Boot, ReactJS, AWS, MySQL, JUnit, Mockito, Docker, Git</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section id="projects">
+    <div class="wrap reveal">
+      <div class="eyebrow"><span class="method get">GET</span> /projects → 200 OK</div>
+      <h2 class="section-title">Selected projects</h2>
+      <p class="lede">A mix of backend-heavy and full-stack builds. More on <a href="https://github.com/AadityaMohan-dev" target="_blank" rel="noopener" style="color:var(--green); font-weight:600;">GitHub →</a></p>
+
+      <div class="proj-grid">
+        <div class="proj-card">
+          <div class="proj-top"><div class="proj-name">FinanceFlow</div><div class="proj-badge">01</div></div>
+          <div class="proj-desc">A web app to manage expenses, track budgets, and visualize financial data with interactive charts.</div>
+          <div class="proj-stack"><b>Stack:</b> Next.js, Prisma, PostgreSQL, Clerk</div>
+          <a class="proj-link" href="#">View project →</a>
+        </div>
+        <div class="proj-card">
+          <div class="proj-top"><div class="proj-name">Auth App</div><div class="proj-badge">02</div></div>
+          <div class="proj-desc">An authentication service for issuing and managing secure sessions across SaaS platforms.</div>
+          <div class="proj-stack"><b>Stack:</b> Java, Spring Boot, MySQL, JPA, REST APIs</div>
+          <a class="proj-link" href="#">View project →</a>
+        </div>
+        <div class="proj-card">
+          <div class="proj-top"><div class="proj-name">ChatPal</div><div class="proj-badge">03</div></div>
+          <div class="proj-desc">A GenAI-powered chatbot with real-time messaging and LLM-based responses. <em style="opacity:.7;">(description trimmed in source — confirm details)</em></div>
+          <div class="proj-stack"><b>Stack:</b> Java, Spring Boot, WebSockets, LLM API</div>
+          <a class="proj-link" href="#">View project →</a>
+        </div>
+        <div class="proj-card">
+          <div class="proj-top"><div class="proj-name">ByteBlog</div><div class="proj-badge">04</div></div>
+          <div class="proj-desc">A full-stack blogging platform with authentication, publishing, and rich content editing. <em style="opacity:.7;">(description trimmed in source — confirm details)</em></div>
+          <div class="proj-stack"><b>Stack:</b> Spring Boot, ReactJS, MySQL</div>
+          <a class="proj-link" href="#">View project →</a>
+        </div>
+      </div>
+      <div class="more-note">⚠ Project links, tech stacks for ChatPal/ByteBlog, and screenshots weren't in the source material — swap in your real repo URLs, live demo links, and preview images before publishing.</div>
+    </div>
+  </section>
+
+  <!-- ================= EDUCATION + CERTS ================= -->
+  <section>
+    <div class="wrap reveal">
+      <div class="eyebrow"><span class="method get">GET</span> /education → 200 OK</div>
+      <h2 class="section-title">Education &amp; certifications</h2>
+      <div class="split">
+        <div class="edu-card">
+          <h4>Education</h4>
+          <div class="edu-item">
+            <div class="deg">B.Tech, Computer Science</div>
+            <div class="school">IEC College of Technology, Greater Noida · Jun 2018 – Aug 2022</div>
+          </div>
+        </div>
+        <div class="edu-card">
+          <h4>Certifications</h4>
+          <div class="cert-item"><span class="chk">✓</span> Microsoft Azure Fundamentals (AZ-900)</div>
+          <div class="cert-item"><span class="chk">✓</span> Postman API Fundamentals Student Expert</div>
+          <div class="cert-item"><span class="chk">✓</span> React Certification — W3Schools</div>
+          <div class="cert-item"><span class="chk">✓</span> Python Programming Certification — W3Schools</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" class="contact-section">
+    <div class="wrap reveal">
+      <div class="eyebrow"><span class="method post">POST</span> /contact</div>
+      <h2 class="section-title">Let's build something</h2>
+      <p class="lede">Open to full-time roles, freelance projects, and collaborations. Send a request — I respond fast.</p>
+
+      <div class="contact-grid">
+        <a class="contact-card" id="emailCard" href="#">
+          <div><div class="cc-label">Email</div><div class="cc-value" id="emailVal">Loading…</div></div>
+          <span class="arrow">→</span>
+        </a>
+        <a class="contact-card" id="phoneCard" href="#">
+          <div><div class="cc-label">Phone</div><div class="cc-value" id="phoneVal">Loading…</div></div>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <div class="contact-foot">
+        <span>📍 Greater Noida, India</span>
+        <span><a href="https://linkedin.com/in/aaditya-mohan" target="_blank" rel="noopener">linkedin.com/in/aaditya-mohan</a> · <a href="https://github.com/AadityaMohan-dev" target="_blank" rel="noopener">github.com/AadityaMohan-dev</a></span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // Build contact info at runtime (mild scraper deterrence) instead of raw text in HTML source.
+  (function(){
+    var eUser = "aadimohan51", eDomain = "gmail.com";
+    var email = eUser + "@" + eDomain;
+    var emailEl = document.getElementById('emailVal');
+    var emailCard = document.getElementById('emailCard');
+    emailEl.textContent = email;
+    emailCard.href = "mailto:" + email;
+
+    var pRaw = ["+91", "8881685609"];
+    var phone = pRaw.join(" ");
+    var phoneEl = document.getElementById('phoneVal');
+    var phoneCard = document.getElementById('phoneCard');
+    phoneEl.textContent = phone;
+    phoneCard.href = "tel:" + pRaw.join("");
+  })();
+
+  // Terminal typing animation
+  (function(){
+    var body = document.getElementById('termBody');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var linesToType = [
+      { text: '$ curl aaditya.dev/api/profile', cls: 'prompt' }
+    ];
+    var jsonBlock =
+'{\n' +
+'  <span class="json-key">"name"</span><span class="json-punc">:</span> <span class="json-str">"Aaditya Mohan"</span>,\n' +
+'  <span class="json-key">"role"</span><span class="json-punc">:</span> <span class="json-str">"Java Full Stack Developer"</span>,\n' +
+'  <span class="json-key">"experience"</span><span class="json-punc">:</span> <span class="json-str">"3+ years"</span>,\n' +
+'  <span class="json-key">"stack"</span><span class="json-punc">:</span> [<span class="json-str">"Java"</span>, <span class="json-str">"Spring Boot"</span>, <span class="json-str">"React"</span>, <span class="json-str">"AWS"</span>],\n' +
+'  <span class="json-key">"location"</span><span class="json-punc">:</span> <span class="json-str">"Greater Noida, India"</span>,\n' +
+'  <span class="json-key">"status"</span><span class="json-punc">:</span> <span class="json-str">"open_to_work"</span>\n' +
+'}';
+
+    if(reduced){
+      body.innerHTML = '<div class="term-line"><span class="prompt">$</span> curl aaditya.dev/api/profile</div><div class="term-line">' + jsonBlock + '</div>';
+      return;
+    }
+
+    var promptLine = document.createElement('div');
+    promptLine.className = 'term-line';
+    body.appendChild(promptLine);
+
+    var fullPrompt = '$ curl aaditya.dev/api/profile';
+    var i = 0;
+    function typePrompt(){
+      if(i <= fullPrompt.length){
+        promptLine.innerHTML = '<span class="prompt">' + fullPrompt.slice(0,1) + '</span>' + fullPrompt.slice(1,i) + '<span class="cursor"></span>';
+        i++;
+        setTimeout(typePrompt, 28);
+      } else {
+        promptLine.innerHTML = '<span class="prompt">$</span>' + fullPrompt.slice(1);
+        setTimeout(showJson, 300);
+      }
+    }
+    function showJson(){
+      var jsonLine = document.createElement('div');
+      jsonLine.className = 'term-line';
+      jsonLine.style.marginTop = '14px';
+      jsonLine.style.opacity = '0';
+      jsonLine.innerHTML = jsonBlock;
+      body.appendChild(jsonLine);
+      requestAnimationFrame(function(){
+        jsonLine.style.transition = 'opacity .4s ease';
+        jsonLine.style.opacity = '1';
+      });
+    }
+    typePrompt();
+  })();
+
+  // Scroll reveal
+  (function(){
+    var items = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      items.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    items.forEach(function(el){ obs.observe(el); });
+  })();
+</script>
+
+</body>
+</html>

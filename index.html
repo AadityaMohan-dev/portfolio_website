@@ -32,6 +32,7 @@
     font-family:var(--sans);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
 
   /* subtle blueprint grid texture */
@@ -51,7 +52,7 @@
   a{color:inherit;}
   ::selection{background:var(--green); color:var(--paper);}
 
-  .wrap{max-width:1080px; margin:0 auto; padding:0 32px; position:relative; z-index:1;}
+  .wrap{width:100%; max-width:1080px; margin:0 auto; padding:0 32px; position:relative; z-index:1;}
 
   /* ---------- NAV ---------- */
   header{
@@ -62,7 +63,7 @@
   }
   .nav{
     display:flex; align-items:center; justify-content:space-between;
-    padding:18px 32px; max-width:1080px; margin:0 auto;
+    padding:18px 32px; width:100%; max-width:1080px; margin:0 auto;
   }
   .brand{
     font-family:var(--mono); font-weight:700; font-size:15px; letter-spacing:0.02em;
@@ -112,6 +113,7 @@
 
   .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:start;}
   @media (max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+  .hero-grid > *{min-width:0;}
 
   .hero h1{
     font-family:var(--mono); font-size:clamp(34px, 5vw, 54px); font-weight:800;
@@ -151,7 +153,7 @@
   }
   .terminal-body{
     padding:22px 20px; font-family:var(--mono); font-size:13px; color:#C8D0DC;
-    min-height:280px;
+    min-height:280px; overflow-wrap:anywhere;
   }
   .terminal-body .prompt{color:#6BBF8F;}
   .terminal-body .path{color:#8891A0;}
@@ -281,6 +283,37 @@
   }
 
   :focus-visible{outline:2px solid var(--green); outline-offset:2px;}
+
+  @media (max-width:560px){
+    .wrap{padding:0 16px;}
+    .nav{padding:14px 16px; flex-wrap:wrap; gap:14px 16px;}
+    .brand{font-size:14px;}
+    .nav-icons{margin-left:auto;}
+    nav.links{order:3; width:100%; justify-content:space-between; gap:8px; padding-top:2px;}
+    .endpoint-link{gap:0;}
+    .method{font-size:10px; padding:2px 5px;}
+    .hero{padding:56px 0 42px;}
+    .status-pill{font-size:10.5px; line-height:1.4; margin-bottom:22px;}
+    .hero .role{font-size:17px;}
+    .cta-row{gap:10px; margin-top:24px;}
+    .btn{font-size:12px; padding:11px 14px;}
+    section{padding:58px 0;}
+    .lede{font-size:15px; margin-bottom:32px;}
+    .stat-row{gap:10px; margin:28px 0 34px;}
+    .stat-card{padding:16px;}
+    .job{padding:20px 18px; margin-bottom:16px;}
+    .job-role{font-size:16px;}
+    .job-meta{font-size:13px; overflow-wrap:anywhere;}
+    .job li{font-size:14px;}
+    .proj-card,.edu-card{padding:20px 18px;}
+    .contact-card{padding:18px;}
+    .contact-foot{align-items:flex-start; margin-top:30px;}
+    .contact-foot span:last-child{overflow-wrap:anywhere;}
+  }
+
+  @media (min-width:1200px){
+    .hero{padding-top:104px;}
+  }
 </style>
 </head>
 <body>

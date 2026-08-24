@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FileDown } from 'lucide-react';
+import { FileDown, ArrowRight, Mail } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 import { InteractiveTerminal } from './InteractiveTerminal';
 
@@ -16,111 +16,110 @@ export const Hero: React.FC<HeroProps> = ({
   onToggleTheme,
 }) => {
   return (
-    <section className="relative pt-10 pb-16 sm:pt-16 sm:pb-24 overflow-hidden">
+    <section className="relative overflow-hidden border-b border-paper-200/70 dark:border-paper-800/70">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          
-          {/* Left Column: Pitch & Profile */}
+
+        <div className="flex flex-col gap-4 border-x border-paper-200/70 dark:border-paper-800/70 px-4 py-5 sm:px-6 sm:py-7 lg:px-8">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-paper-200 dark:border-paper-800 pb-4 font-mono text-[10px] uppercase tracking-[0.14em] text-paper-500 dark:text-paper-400">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(34,197,94,0.14)]" />
+              <span>Available for new work</span>
+            </div>
+            <span className="text-paper-400 dark:text-paper-500">/ profile / software-engineer</span>
+          </div>
+
+          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-12 lg:pt-8">
           <motion.div 
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35 }}
-            className="lg:col-span-6 space-y-5 sm:space-y-6"
+              className="space-y-6 sm:space-y-7 lg:col-span-7"
           >
-            {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-paper-200 dark:border-paper-800 bg-white dark:bg-paper-900 text-xs font-mono shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-500 shadow-[0_0_0_3px_rgba(22,128,60,0.15)] animate-pulse shrink-0"></span>
-              <span className="font-bold text-paper-500 uppercase text-[9.5px] tracking-wider">
-                Availability
-              </span>
-              <span className="px-1.5 py-0.5 rounded-[2px] text-[9.5px] font-extrabold bg-emerald-600 text-white shrink-0">
-                200 OK
-              </span>
-              <span className="text-paper-300 dark:text-paper-700">|</span>
-              <span className="text-paper-800 dark:text-paper-200 font-medium truncate">
-                {portfolioData.availability.text}
-              </span>
-            </div>
+              <div className="space-y-3">
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400">
+                  {portfolioData.name} / {portfolioData.title}
+                </p>
+                <h1 className="max-w-3xl font-display text-4xl font-bold leading-[1.02] tracking-tight text-paper-950 dark:text-paper-50 sm:text-6xl lg:text-[4.25rem]">
+                  Building software that stays useful under pressure<span className="text-blue-600 dark:text-blue-500">.</span>
+                </h1>
+                <p className="max-w-2xl text-sm leading-relaxed text-paper-600 dark:text-paper-400 sm:text-base">
+                  Backend-focused software engineer with <strong>3+ years of experience</strong> modernizing enterprise systems, designing resilient APIs, and shipping cloud-ready products with <strong>Java 17, Spring Boot, React, and AWS</strong>.
+                </p>
+              </div>
 
-            {/* Headline */}
-            <div className="space-y-1.5">
-              <h1 className="font-display text-4xl sm:text-6xl font-bold tracking-tight text-paper-950 dark:text-paper-50 leading-[0.98]">
-                Aaditya<br />
-                Mohan<span className="text-blue-600 dark:text-blue-500">.</span>
-              </h1>
-              <p className="text-base sm:text-lg text-paper-600 dark:text-paper-400 pt-1 leading-relaxed">
-                <strong className="text-paper-950 dark:text-paper-100 font-semibold">Software Engineer</strong> — 3+ years designing and scaling enterprise applications with Spring Boot, microservices, and AWS. I turn legacy systems into modern, well-documented APIs.
-              </p>
-            </div>
+              <div className="flex flex-wrap items-center gap-2 font-mono">
+              <a
+                href="#projects"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigateSection?.('projects');
+                }}
+                  className="inline-flex items-center justify-center gap-2 rounded-[4px] bg-blue-600 px-4 py-3 text-xs font-bold text-white shadow-sm transition hover:bg-blue-700 active:scale-[0.98]"
+              >
+                <span>View Work</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
 
-            {/* Core Tech Stack Badges */}
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-1 font-mono text-xs">
-              <span className="px-2.5 py-1 rounded-[4px] bg-paper-100 dark:bg-paper-850 border border-paper-200 dark:border-paper-750 font-semibold text-paper-800 dark:text-paper-200">
-                ☕ Java 17
-              </span>
-              <span className="px-2.5 py-1 rounded-[4px] bg-paper-100 dark:bg-paper-850 border border-paper-200 dark:border-paper-750 font-semibold text-paper-800 dark:text-paper-200">
-                🍃 Spring Boot
-              </span>
-              <span className="px-2.5 py-1 rounded-[4px] bg-paper-100 dark:bg-paper-850 border border-paper-200 dark:border-paper-750 font-semibold text-paper-800 dark:text-paper-200">
-                ☁️ AWS
-              </span>
-              <span className="px-2.5 py-1 rounded-[4px] bg-paper-100 dark:bg-paper-850 border border-paper-200 dark:border-paper-750 font-semibold text-paper-800 dark:text-paper-200">
-                ⚛️ React
-              </span>
-              <span className="px-2.5 py-1 rounded-[4px] bg-paper-100 dark:bg-paper-850 border border-paper-200 dark:border-paper-750 font-semibold text-paper-800 dark:text-paper-200">
-                🐬 MySQL / Postgres
-              </span>
-            </div>
+              {/* Secondary CTA: Let's Connect */}
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigateSection?.('contact');
+                }}
+                  className="inline-flex items-center justify-center gap-2 rounded-[4px] border border-paper-300 bg-white px-4 py-3 text-xs font-bold text-paper-900 transition hover:bg-paper-100 active:scale-[0.98] dark:border-paper-700 dark:bg-paper-900 dark:text-paper-100 dark:hover:bg-paper-800"
+              >
+                <Mail className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400" />
+                <span>Let's Connect</span>
+              </a>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-2 font-mono">
+              {/* Resume CTA */}
               <a
                 href={portfolioData.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-[4px] text-xs font-bold bg-blue-600 hover:bg-paper-950 text-white transition active:scale-[0.98] shadow-sm"
+                  className="inline-flex items-center justify-center gap-2 rounded-[4px] border border-paper-200 bg-paper-50 px-4 py-3 text-xs font-bold text-paper-700 transition hover:text-paper-950 active:scale-[0.98] dark:border-paper-800 dark:bg-paper-850 dark:text-paper-300 dark:hover:text-white"
               >
-                <FileDown className="w-4 h-4" />
-                Download Résumé
+                <FileDown className="w-3.5 h-3.5 text-paper-500" />
+                <span>Résumé</span>
               </a>
-
-              <div className="grid grid-cols-2 gap-2 sm:flex sm:items-center sm:gap-2">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center px-3.5 py-2.5 rounded-[4px] text-xs font-bold border border-paper-300 dark:border-paper-700 bg-white dark:bg-paper-900 text-paper-900 dark:text-paper-100 hover:bg-paper-100 dark:hover:bg-paper-800 transition active:scale-[0.98]"
-                >
-                  <span className="text-orange-600 dark:text-orange-400 font-extrabold mr-1">POST</span>
-                  /contact
-                </a>
-
-                <a
-                  href="#projects"
-                  className="inline-flex items-center justify-center px-3.5 py-2.5 rounded-[4px] text-xs font-bold border border-paper-300 dark:border-paper-700 bg-white dark:bg-paper-900 text-paper-900 dark:text-paper-100 hover:bg-paper-100 dark:hover:bg-paper-800 transition active:scale-[0.98]"
-                >
-                  <span className="text-blue-600 dark:text-blue-400 font-extrabold mr-1">GET</span>
-                  /projects
-                </a>
               </div>
-            </div>
-          </motion.div>
 
-          {/* Right Column: Terminal */}
-          <motion.div 
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: 0.1 }}
-            className="lg:col-span-6 w-full"
-          >
-            <InteractiveTerminal 
-              onNotify={onNotify}
-              onNavigateSection={onNavigateSection}
-              onToggleTheme={onToggleTheme}
-            />
-          </motion.div>
+              <div className="grid max-w-2xl grid-cols-3 border-y border-paper-200 dark:border-paper-800 py-4">
+                {portfolioData.metrics.map((metric) => (
+                  <div key={metric.label} className="border-r border-paper-200 px-3 first:pl-0 last:border-r-0 dark:border-paper-800">
+                    <p className="font-display text-2xl font-bold text-paper-950 dark:text-paper-50 sm:text-3xl">{metric.number}</p>
+                    <p className="mt-1 font-mono text-[9px] font-bold uppercase leading-tight tracking-wider text-paper-500 dark:text-paper-400">{metric.label}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
 
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.1 }}
+              className="relative lg:col-span-5 lg:pt-2"
+            >
+              <div className="mb-2 flex items-center justify-between px-1 font-mono text-[10px] uppercase tracking-wider text-paper-400">
+                <span>Interactive Terminal</span>
+                <span>zsh v5.9</span>
+              </div>
+              <div className="border-l-2 border-blue-600 pl-3 dark:border-blue-500 sm:pl-4">
+                <InteractiveTerminal
+                  onNotify={onNotify}
+                  onNavigateSection={onNavigateSection}
+                  onToggleTheme={onToggleTheme}
+                />
+              </div>
+              <div className="mt-3 flex flex-wrap gap-2 font-mono text-[10px] text-paper-500 dark:text-paper-400">
+                <span className="border border-paper-200 px-2 py-1 dark:border-paper-800">JAVA 17</span>
+                <span className="border border-paper-200 px-2 py-1 dark:border-paper-800">SPRING BOOT</span>
+                <span className="border border-paper-200 px-2 py-1 dark:border-paper-800">AWS READY</span>
+              </div>
+            </motion.div>
+          </div>
         </div>
-
       </div>
     </section>
   );

@@ -19,9 +19,14 @@ export interface ExperienceItem {
 
 export interface ProjectItem {
   id: string;
+  number: string;
   title: string;
   tagline: string;
   description: string;
+  problem: string;
+  solution: string;
+  keyChallenge: string;
+  outcome: string;
   stack: string[];
   category: 'all' | 'fullstack' | 'backend' | 'ai_cloud';
   metrics?: string;

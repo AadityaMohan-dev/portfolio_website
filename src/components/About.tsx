@@ -1,31 +1,33 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Layers, Zap, ShieldCheck, CheckCircle, Sparkles } from 'lucide-react';
+import { Layers, Zap, ShieldCheck, CheckCircle2, Sparkles, Terminal, Database, Cloud, Code2, Cpu } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 export const About: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [activeGroup, setActiveGroup] = useState<string>('all');
 
-  const categories = [
-    { id: 'all', label: 'All Skills' },
-    { id: 'backend', label: 'Backend & APIs' },
-    { id: 'languages', label: 'Languages' },
-    { id: 'frontend', label: 'Frontend' },
-    { id: 'cloud_db', label: 'Cloud & DB' },
-    { id: 'testing_practices', label: 'Testing & Practices' },
+  const capabilityGroups = [
+    { id: 'all', label: 'All Capabilities', icon: Sparkles },
+    { id: 'backend', label: 'Backend & APIs', icon: Cpu },
+    { id: 'frontend', label: 'Frontend', icon: Code2 },
+    { id: 'cloud_db', label: 'Cloud & Infrastructure', icon: Cloud },
+    { id: 'data', label: 'Data & SQL', icon: Database },
+    { id: 'testing_practices', label: 'Engineering & Testing', icon: Terminal },
   ];
 
-  const filteredSkills = selectedCategory === 'all'
+  const filteredSkills = activeGroup === 'all'
     ? portfolioData.skills
-    : portfolioData.skills.filter(s => s.category === selectedCategory);
+    : activeGroup === 'data'
+      ? portfolioData.skills.filter(s => s.name === 'SQL' || s.name === 'MySQL' || s.name === 'PostgreSQL' || s.name === 'Python')
+      : portfolioData.skills.filter(s => s.category === activeGroup);
 
   return (
-    <section id="about" className="py-16 sm:py-24 border-t border-b border-paper-200 dark:border-paper-800 bg-paper-100/60 dark:bg-paper-900/40">
+    <section id="about" className="py-14 sm:py-20 border-t border-b border-paper-200 dark:border-paper-800 bg-paper-100/60 dark:bg-paper-900/40">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Eyebrow & Title */}
-        <div className="space-y-2 mb-10">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-paper-500">
+        <div className="space-y-2 mb-8 sm:mb-10">
+          <div className="inline-flex items-center gap-2 font-mono text-xs text-paper-500 dark:text-paper-400">
             <span className="px-1.5 py-0.5 rounded-[2px] font-extrabold text-[10px] bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20">
               GET
             </span>
@@ -35,16 +37,17 @@ export const About: React.FC = () => {
           </div>
 
           <h2 className="font-display text-2xl sm:text-4xl font-bold text-paper-950 dark:text-paper-50 tracking-tight">
-            Profile summary
+            Engineering philosophy &amp; capabilities
           </h2>
           
-          <p className="text-paper-600 dark:text-paper-400 text-sm sm:text-base max-w-3xl leading-relaxed">
-            A results-driven Software Engineer with hands-on experience across the entire SDLC — from designing REST APIs and optimizing SQL queries to migrating legacy monolithic platforms to AWS cloud microservices.
+          {/* Engineering narrative */}
+          <p className="text-paper-700 dark:text-paper-300 text-sm sm:text-base max-w-3xl leading-relaxed font-sans font-normal">
+            "I enjoy working where software engineering meets complexity — modernizing legacy systems, designing APIs, improving performance, and turning business requirements into reliable production software."
           </p>
         </div>
 
-        {/* Quantitative Metric Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-12">
+        {/* Impact Proof Points (Metrics) */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-10">
           {portfolioData.metrics.map((metric, idx) => {
             const icons = [Layers, Zap, ShieldCheck];
             const Icon = icons[idx % icons.length];
@@ -57,7 +60,7 @@ export const About: React.FC = () => {
                 transition={{ duration: 0.3, delay: idx * 0.08 }}
                 className="p-5 sm:p-6 rounded-[4px] bg-white dark:bg-paper-850 border border-paper-200 dark:border-paper-800 shadow-sm hover:border-blue-500 dark:hover:border-blue-400 transition group"
               >
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-2.5">
                   <span className="font-display font-bold text-3xl sm:text-4xl text-blue-600 dark:text-blue-400 group-hover:scale-105 transition-transform">
                     {metric.number}
                   </span>
@@ -65,10 +68,10 @@ export const About: React.FC = () => {
                     <Icon className="w-5 h-5" />
                   </div>
                 </div>
-                <h3 className="font-bold text-paper-950 dark:text-paper-50 text-sm sm:text-base mb-1">
+                <h3 className="font-bold text-paper-950 dark:text-paper-50 text-sm sm:text-base mb-1 font-sans">
                   {metric.label}
                 </h3>
-                <p className="text-xs text-paper-500 dark:text-paper-400 leading-relaxed">
+                <p className="text-xs text-paper-500 dark:text-paper-400 leading-relaxed font-sans">
                   {metric.description}
                 </p>
               </motion.div>
@@ -76,33 +79,38 @@ export const About: React.FC = () => {
           })}
         </div>
 
-        {/* Skills Container with Interactive Tabs */}
+        {/* Structured Capabilities Grid */}
         <div className="p-5 sm:p-7 rounded-[4px] bg-white dark:bg-paper-850 border border-paper-200 dark:border-paper-800 shadow-sm">
+          
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <div>
               <h3 className="font-display text-lg sm:text-xl font-bold text-paper-950 dark:text-paper-50">
-                Technical competencies &amp; stack
+                Technical competencies
               </h3>
-              <p className="text-xs text-paper-500 dark:text-paper-400 mt-0.5">
-                Frameworks, languages, and architecture toolkits used in production.
+              <p className="text-xs text-paper-500 dark:text-paper-400 mt-0.5 font-sans">
+                Curated technical toolkit applied across enterprise systems &amp; microservices.
               </p>
             </div>
 
-            {/* Filter Tabs */}
+            {/* Filter Group Tabs */}
             <div className="flex items-center gap-1 p-1 rounded-[4px] bg-paper-100 dark:bg-paper-900 border border-paper-200 dark:border-paper-800 overflow-x-auto self-start md:self-auto max-w-full">
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-2.5 py-1 rounded-[2px] font-mono text-[11px] whitespace-nowrap transition ${
-                    selectedCategory === cat.id
-                      ? 'bg-white dark:bg-paper-800 text-paper-950 dark:text-paper-50 font-bold border border-paper-200 dark:border-paper-700 shadow-sm'
-                      : 'text-paper-600 dark:text-paper-400 hover:text-paper-950 dark:hover:text-white'
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              ))}
+              {capabilityGroups.map((group) => {
+                const Icon = group.icon;
+                return (
+                  <button
+                    key={group.id}
+                    onClick={() => setActiveGroup(group.id)}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-[2px] font-mono text-[11px] whitespace-nowrap transition ${
+                      activeGroup === group.id
+                        ? 'bg-white dark:bg-paper-800 text-paper-950 dark:text-paper-50 font-bold border border-paper-200 dark:border-paper-700 shadow-sm'
+                        : 'text-paper-600 dark:text-paper-400 hover:text-paper-950 dark:hover:text-white'
+                    }`}
+                  >
+                    <Icon className="w-3 h-3 text-blue-600 dark:text-blue-400" />
+                    <span>{group.label}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -128,17 +136,18 @@ export const About: React.FC = () => {
             ))}
           </div>
 
-          {/* Architecture Principles Footer note */}
+          {/* Engineering Standards Footer */}
           <div className="mt-7 pt-4 border-t border-paper-100 dark:border-paper-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-paper-500 dark:text-paper-400">
             <span className="flex items-center gap-1.5">
-              <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-              Clean Architecture, Domain-Driven Design &amp; SOLID Principles
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              Clean Architecture, RESTful API Standards &amp; SOLID Principles
             </span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-              Microservice Orchestration &amp; Continuous Integration
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              Microservices Orchestration, TDD &amp; Automated CI/CD
             </span>
           </div>
+
         </div>
 
       </div>

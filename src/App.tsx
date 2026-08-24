@@ -100,7 +100,6 @@ export function App() {
         <Navbar
           isDark={isDark}
           onToggleTheme={handleToggleTheme}
-          onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
           activeSection={activeSection}
         />
       </div>

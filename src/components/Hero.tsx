@@ -20,13 +20,7 @@ export const Hero: React.FC<HeroProps> = ({
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="flex flex-col gap-4 border-x border-paper-200/70 dark:border-paper-800/70 px-4 py-5 sm:px-6 sm:py-7 lg:px-8">
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-paper-200 dark:border-paper-800 pb-4 font-mono text-[10px] uppercase tracking-[0.14em] text-paper-500 dark:text-paper-400">
-            <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(34,197,94,0.14)]" />
-              <span>Available for new work</span>
-            </div>
-            <span className="text-paper-400 dark:text-paper-500">/ profile / software-engineer</span>
-          </div>
+         
 
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-12 lg:pt-8">
           <motion.div 

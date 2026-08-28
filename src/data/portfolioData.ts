@@ -9,7 +9,7 @@ export const portfolioData: ProfileData = {
   location: "Greater Noida, India",
   email: "aadimohan51@gmail.com",
   phone: "+91 8881685609",
-  resumeUrl: "Aaditya_Mohan_Resume.pdf",
+  resumeUrl: "/Aaditya_Mohan_Resume.pdf",
   githubUrl: "https://github.com/AadityaMohan-dev",
   linkedinUrl: "https://linkedin.com/in/aaditya-mohan",
   availability: {
